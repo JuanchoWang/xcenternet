@@ -2,7 +2,7 @@ import argparse
 import os
 import tensorflow as tf
 
-from xcenternet.datasets import CocoDataset, VocDataset, CustomDataset
+from xcenternet.datasets import CocoDataset, VocDataset, CustomDataset, McodDataset
 from xcenternet.model.callbacks import MAPValidationCallback
 from xcenternet.model.config import ModelConfig, XModelType, XModelBackbone, XModelMode
 from xcenternet.model.model_factory import create_model, load_and_update_model, load_pretrained_weights
@@ -62,6 +62,8 @@ if args.dataset == "voc":
 elif args.dataset == "coco":
     dataset = CocoDataset(args.lr)
 elif args.dataset == "custom":
+    dataset = CustomDataset(args.dataset_path_tr, args.dataset_path_te, args.lr)
+elif args.dataset == "mcod":
     dataset = CustomDataset(args.dataset_path_tr, args.dataset_path_te, args.lr)
 else:
     print(f"Unknown dataset {args.dataset}.")
