@@ -62,8 +62,10 @@ class McodDataset(Dataset):
 
         # added by Xiao
         image_id = par_feat[TfExampleFields.filename]
+        labels = tf.reshape(label, [-1])
+        bboxes = tf.reshape(bbox, [-1, 4])
 
-        return image, label, bbox, image_id
+        return image, labels, bboxes, image_id
 
     def _load_dataset(self, filenames, shuffle_tfrecords=True):
         if shuffle_tfrecords:

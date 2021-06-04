@@ -14,8 +14,8 @@ from xcenternet.tensorboard.result_log import ResultImageLogCallback
 
 parser = argparse.ArgumentParser(description="Run training of centernet on VOC.")
 parser.add_argument("--dataset", type=str, default="voc", help="voc, coco, custom (coco format)")
-parser.add_argument("--dataset_path_tr", type=str, default="", help="path to the train file")
-parser.add_argument("--dataset_path_te", type=str, default="", help="path to the test file")
+parser.add_argument("--dataset_path_tr", nargs='+')  # type=str, default="", help="path to the train file")
+parser.add_argument("--dataset_path_te", nargs='+')  # type=str, default="", help="path to the test file")
 parser.add_argument("--model_type", type=str, default="centernet", help="centernet or ttfnet")
 parser.add_argument("--model_mode", type=str, default="dcnshortcut", help="concat, sum or simple")
 parser.add_argument("--backbone", type=str, default="resnet18", help="resnet18, resnet50 or efficientnetb0")
@@ -64,7 +64,7 @@ elif args.dataset == "coco":
 elif args.dataset == "custom":
     dataset = CustomDataset(args.dataset_path_tr, args.dataset_path_te, args.lr)
 elif args.dataset == "mcod":
-    dataset = CustomDataset(args.dataset_path_tr, args.dataset_path_te, args.lr)
+    dataset = McodDataset(args.dataset_path_tr, args.dataset_path_te, args.lr)
 else:
     print(f"Unknown dataset {args.dataset}.")
     exit()
